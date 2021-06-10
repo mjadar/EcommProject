@@ -5,9 +5,37 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Facelet Title</title>        
+        <h:outputStylesheet library="css" name="style.css"/>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </h:head>
     <h:body>
+        <div class="wrapper fadeInDown">
+            <div id="formContent">
+              <!-- Tabs Titles -->
+
+              <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="C:/Users/souhaib/Downloads/user_icon.png" id="icon" alt="User Icon" />
+            </div>
+
+              <!-- Login Form -->
+            <form>
+                <input type="text" id="login" class="fadeIn second" name="login" placeholder="login"/>
+                <input type="text" id="password" class="fadeIn third" name="login" placeholder="password"/>
+                <input type="submit" class="fadeIn fourth" value="Log In"/>
+            </form>
+
+              <!-- Remind Passowrd -->
+            <div id="formFooter">
+                <a class="underlineHover" href="#">Forgot Password?</a>
+            </div>
+
+            </div>
+        </div>
+        <!--
        <h:form id="user-form">  
             <h:outputLabel for="username">Code </h:outputLabel>  
             <h:inputText id="code" value="#{produitsBean.id_prod}" required="true" requiredMessage="Username is required"/><br/>  
@@ -47,6 +75,7 @@
             </ui:repeat>
 
         </table>    
+        -->
         
     </h:body>
 </html>
