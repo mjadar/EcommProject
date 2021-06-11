@@ -5,15 +5,14 @@
  */
 package ensat.DAO;
 
-import ensat.Entity.Produits;
 import java.util.List;
 
 
-public interface interfaceDAO {
-    boolean creer(Produits p);
-    boolean update (Produits p);
+public interface interfaceDAO <T> {
+    boolean creer(T p);
+    boolean update (T p);
     boolean delete (int code);
-    Produits recuperer(int code);
-    List<Produits> recuperer_All();
+    T recuperer(int code);
+    List<T> recuperer_All();
     
 }

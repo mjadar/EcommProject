@@ -7,34 +7,45 @@ package ensat.Entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
  *
  * @author moham
  */
+
 @Entity
 @Table(name="COMMANDE")
 public class Commande implements Serializable{
     @Id
-    @GeneratedValue
+     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id_com;
-    private int id_user;
-    private int id_prod;
-    private String libelle;
-    private int qte;
+    @ManyToOne
+     @JoinColumn(name = "id_user")
+    private Usert user;
+    @ManyToOne
+     @JoinColumn(name = "id_prod")
+    private Produits produit;
+    private int qte ;
     private double prix;
 
-    public Commande(int id_com, int id_user, int id_prod, String libelle, int qte, double prix) {
-        this.id_com = id_com;
-        this.id_user = id_user;
-        this.id_prod = id_prod;
-        this.libelle = libelle;
-        this.qte = qte;
-        this.prix = prix;
+    public Commande() {
     }
+
+    public Commande(Usert user, Produits produit, double prix,int qte) {
+        this.user = user;
+        this.produit = produit;
+        this.prix = prix;
+    }  
 
     public int getId_com() {
         return id_com;
@@ -44,28 +55,20 @@ public class Commande implements Serializable{
         this.id_com = id_com;
     }
 
-    public int getId_user() {
-        return id_user;
+    public Usert getUser() {
+        return user;
     }
 
-    public void setId_user(int id_user) {
-        this.id_user = id_user;
+    public void setUser(Usert user) {
+        this.user = user;
     }
 
-    public int getId_prod() {
-        return id_prod;
+    public Produits getProduit() {
+        return produit;
     }
 
-    public void setId_prod(int id_prod) {
-        this.id_prod = id_prod;
-    }
-
-    public String getLibelle() {
-        return libelle;
-    }
-
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setProduit(Produits produit) {
+        this.produit = produit;
     }
 
     public int getQte() {
@@ -83,6 +86,7 @@ public class Commande implements Serializable{
     public void setPrix(double prix) {
         this.prix = prix;
     }
+    
     
     
 }

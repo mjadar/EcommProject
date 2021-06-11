@@ -12,7 +12,7 @@ import org.hibernate.Session;
 
 
 
-public class ProduitServices implements interfaceDAO{
+public class ProduitServices implements interfaceDAO<Produits>{
 
     private Session s;
    
@@ -86,14 +86,23 @@ public class ProduitServices implements interfaceDAO{
           //list_prod =   s.createSQLQuery("select * from PRODUITS").list();//requete SQL
            list_prod = s.createCriteria(Produits.class).list();
         //  list_prod = s.createQuery("from Produits").list();//requete HQL
-           System.out.println("#######################################"+list_prod);
           s.getTransaction().commit();
         }catch(Exception e){
-             System.out.println("#######################################"+e);
             e.printStackTrace();
-           
         }
-      
+       return list_prod;
+    }
+    
+    public List<Produits> recuperer_By_Categ(String categ){
+          List<Produits> list_prod= null; 
+       try{
+          s = hibernateCurrentSession.getSessionFactory().openSession();
+          s.beginTransaction();
+          list_prod = s.getNamedQuery("findByCategory").setParameter("categ", categ).list(); 
+          s.getTransaction().commit();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
        return list_prod;
     }
     

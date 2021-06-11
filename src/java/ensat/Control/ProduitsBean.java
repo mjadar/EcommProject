@@ -6,11 +6,15 @@
 package ensat.Control;
 
 import ensat.DAO.ProduitServices;
+import ensat.Entity.CustomProduit;
 import ensat.Entity.Produits;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import javafx.util.Pair;
 
 /**
  *
@@ -29,21 +33,23 @@ public class ProduitsBean implements Serializable {
     private double prix;
     private int qte;
     private String image;
-    private List<Produits> list_produits;
+    private List<Produits> list_produits; 
+    
+
     
     public ProduitsBean() {
-        getProducts();
+        getProducts(null);
     }
-
+    
     public int getId_prod() {
         return id_prod;
     }
 
+  
+
     public void setId_prod(int id_prod) {
         this.id_prod = id_prod;
     }
-
-
 
     public String getLibelle() {
         return libelle;
@@ -85,7 +91,6 @@ public class ProduitsBean implements Serializable {
         this.image = image;
     }
     
-  
 
     public List<Produits> getList_produits() {
         return list_produits;
@@ -95,17 +100,32 @@ public class ProduitsBean implements Serializable {
         this.list_produits = list_produits;
     }
     
-      
+     private void clearFields(){
+         id_prod =0;
+         qte=0;
+         prix=0.0;
+         libelle="";
+         image="";
+         categorie="";
+     }
     public void saveProducts(){
-        Produits p = new Produits(id_prod,libelle,categorie,qte,prix,image);
+        Produits p = new Produits(libelle,categorie,qte,prix,image);
         ProduitServices ps = new ProduitServices();
         boolean b = ps.creer(p);
         list_produits = ps.recuperer_All();
-        
+        clearFields();
     }
     
-      public void getProducts(){
+      public void getProducts(String categ){
          ProduitServices ps = new ProduitServices();
-         list_produits = ps.recuperer_All(); 
+         if(categ == null){
+              list_produits = ps.recuperer_All();        
+         }else {
+             list_produits = null;
+             list_produits = ps.recuperer_By_Categ(categ);
+         }
+       
     }
+      
+
 }
