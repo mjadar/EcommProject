@@ -1,0 +1,10 @@
+.qte-input {
+    width: 30px;
+    outline : none;
+    margin-right: 4px;
+}
+
+.qte-input:hover {
+    background: #c9c0a6;
+    color : #fff;
+}

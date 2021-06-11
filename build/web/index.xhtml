@@ -3,50 +3,55 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Index</title>
     </h:head>
-    <h:body>
-       <h:form id="user-form">  
-            <h:outputLabel for="username">Code </h:outputLabel>  
-            <h:inputText id="code" value="#{produitsBean.id_prod}" required="true" requiredMessage="Username is required"/><br/>  
-            
-              <h:outputLabel for="libelle">Libelle </h:outputLabel>  
-              <h:inputText id="libelle" value="#{produitsBean.libelle}" required="true" requiredMessage="Username is required"/><br/>  
-            
-              <h:outputLabel for="categorie">Categorie </h:outputLabel>  
-              <h:inputText id="categorie" value="#{produitsBean.categorie}" required="true" requiredMessage="Username is required"/><br/>  
-            
-            
-              <h:outputLabel for="prix">Prix</h:outputLabel>  
-              <h:inputText id="prix" value="#{produitsBean.prix}" required="true" requiredMessage="Username is required"/><br/>  
-            
-              <h:outputLabel for="qte">Qte</h:outputLabel>  
-              <h:inputText id="qte" value="#{produitsBean.qte}" required="true" requiredMessage="Username is required"/><br/>  
-            
-              <h:outputLabel for="image">Image</h:outputLabel>  
-              <h:inputText id="image" value="#{produitsBean.image}" required="true" requiredMessage="Username is required"/><br/>  
-            
-              <h:commandButton id="submit-button" value="Submit" action="#{produitsBean.saveProducts()}"/>  
-        </h:form>  
+    <h:body>   
+       
+        
+        <c:choose>
+            <c:when test="#{loginBean.isLogged}">
+                 <h:outputText value="#{loginBean.email_login}" style="color:green;"> </h:outputText>
+                 <a href="">Déconnexion</a>
+            </c:when>
+            <c:otherwise>
+                <a href="login_register.xhtml">Login/Register</a>
+            </c:otherwise>
+        </c:choose>
+        <br/>
+       
+        <h:form id="user-form">  
+             <h:commandButton id="submit-hommes" value="HOMMES" action="#{produitsBean.getProducts('HOMMES')}"/>
+             <h:commandButton id="submit-femmes" value="FEMMES" action="#{produitsBean.getProducts('FEMMES')}"/>
+             <h:commandButton id="submit-enfants" value="ENFANTS" action="#{produitsBean.getProducts('ENFANTS')}"/>
+        </h:form>     
         
           <table>
-
+            
             <ui:repeat var="o" value="#{produitsBean.list_produits}" varStatus="status">
+               
+                <h:form id="fpanier">  
+                    <tr>
+                        <td>#{o.libelle}</td>                     
+                        <td>#{o.categorie}</td>
+                        <td>#{o.prix}</td>
+                        <td>#{o.qte}</td>
+                        <td><img src="#{o.image}" alt="alt"  style="width: 200px;height: 200px"/></td>
+                        <td>     
 
-                <tr>
-                    <td>#{o.id_prod}</td>
-                    <td>#{o.libelle}</td>
-                    <td>#{o.categorie}</td>
-                    <td>#{o.prix}</td>
-                    <td>#{o.qte}</td>
-                    <td><img src="#{o.image}" alt="alt"/></td>
-                </tr>
+                            <h:commandButton class="panier_submit" value="Ajouter au panier" action="#{panierBean.ajouter_panier(o,1)}"/>
 
+                        </td>
+                    </tr>
+                </h:form>  
             </ui:repeat>
-
         </table>    
         
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+       
+      
     </h:body>
 </html>

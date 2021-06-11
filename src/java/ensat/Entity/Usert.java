@@ -6,35 +6,73 @@
 package ensat.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.Generated;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 
 /**
  *
  * @author moham
  */
+
+
+@NamedQueries(  
+    {  
+        @NamedQuery(  
+        name = "findByEmailMdp",  
+        query = "from Usert p where p.email = :email and p.mdp= :mdp"  
+        ) ,
+         @NamedQuery(  
+        name = "findByEmail",  
+        query = "from Usert p where p.email = :email"  
+        )  
+    }  
+)  
 @Entity
 @Table(name="Usert")
 public class Usert implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id_user;
     private String nom;
     private String prenom;
     private String email;
     private String mdp ;
+    
+    @OneToMany
+    private List<Commande> commandes;  
 
-    public Usert(int id_user, String nom, String prenom, String email, String mdp) {
-        this.id_user = id_user;
+
+    public Usert(){
+    }
+
+    public Usert( String nom, String prenom, String email, String mdp) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.mdp = mdp;
     }
 
+      
+    public List<Commande> getCommandes() {
+        return commandes;
+    }
+
+    public void setCommandes(List<Commande> commandes) {
+        this.commandes = commandes;
+    }
+    
     public int getId_user() {
         return id_user;
     }

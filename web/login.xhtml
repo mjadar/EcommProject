@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>        
+        <h:outputStylesheet library="css" name="loginStyle.css"/>
+    </h:head>
+    <h:body>
+        <main>
+
+            <section class='login'>
+              <div class='login--wrap clearfix'>
+                <div class="row clearfix">
+                  <div class="col col-6 login--l">
+                    <div class="title"><span class='text'>Login</span></div>
+                      <h:form>
+                          <div class='login--body'>
+                            <label>
+                              <div class='label'>Email address</div>
+                               <h:inputText  value="#{loginBean.email_login}" required="true" size="20" maxlength="60" />
+                                   <h:message for="email_login"  style="color: red" />
+                            </label>
+                            <label>
+                              <div class='label'>Password</div>
+                              <h:inputSecret value="#{loginBean.mdp_login}" required="true" size="20" maxlength="20" />
+                                   <h:message for="mdp_login"  style="color: red" />
+                            </label>
+                            <div class='sbmt'>
+                                <h:commandButton value="Login" action="#{loginBean.login()}" styleClass="sbmt--btn" />
+                            </div>
+
+                              <h:outputText value="#{loginBean.msg}" style="color:red;"> </h:outputText>
+                              <br/>
+                          </div>
+                      </h:form>
+                  </div>
+                  <div class="col col-6 login--s">
+
+                      <h:form>
+                          <div class="title"><span class='text'>Signup</span></div>
+                          <div class='login--body'>
+                            <label>
+                              <div class='label'>Nom : </div>
+                                <h:inputText id="nom" value="#{usertBean.nom}" required="true" size="20" maxlength="20" />
+                                  <h:message  for="nom"  style="color: red" />
+                            </label>
+                            <label>
+                              <div class='label'>Prénom : </div>
+                                 <h:inputText id="prenom" value="#{usertBean.prenom}" required="true" size="20" maxlength="20" />
+                                   <h:message for="prenom"  style="color: red" />
+                            </label>
+                            <label>
+                              <div class='label'>Email address</div>
+                               <h:inputText id="email" value="#{usertBean.email}" required="true" size="20" maxlength="60" />
+                                   <h:message for="email"  style="color: red" />
+                            </label>
+                            <label>
+                              <div class='label'>Password</div>
+                              <h:inputSecret id="motdepasse" value="#{usertBean.mdp}" required="true" size="20" maxlength="20" />
+                                  <h:message for="motdepasse"  style="color: red" />
+                            </label>
+                            <div class='sbmt'>
+                              <h:commandButton value="Inscription" action="#{usertBean.register()}" styleClass="sbmt--btn" />
+                            </div>
+                          </div>
+                    </h:form>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+      </main>
+        
+    </h:body>
+</html>
