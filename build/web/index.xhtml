@@ -10,7 +10,7 @@ and open the template in the editor.
           
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>TODO supply a title</title>
+        <title>ACCUEIL</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
           <link rel="stylesheet" href="resources/css/accueilStyle.css"/>
@@ -31,15 +31,16 @@ and open the template in the editor.
               <li> <h:commandButton id="submit-hommes" value="HOMMES" action="#{produitsBean.getProducts('HOMMES')}"/></li>
               <li><h:commandButton id="submit-femmes" value="FEMMES" action="#{produitsBean.getProducts('FEMMES')}"/></li>
               <li><h:commandButton id="submit-enfants" value="ENFANTS" action="#{produitsBean.getProducts('ENFANTS')}"/></li>
-                <li> <c:choose>
-                    <c:when test="#{loginBean.isLogged}">
-                         <h:outputText value="#{loginBean.email_login}" style="color:green;"> </h:outputText>
-                         <h:commandButton value="Déconnexion" action="#{loginBean.loggout()}"/>
-                    </c:when>
-                    <c:otherwise>
-                        <h:commandButton value="Login/Register" action="login.xhtml"/>
-                    </c:otherwise>
-                </c:choose></li>
+                    <li> <c:choose>
+                            <c:when test="#{loginBean.isLogged}">
+                                 <h:outputText value="#{loginBean.email_login}" style="color:green;"> </h:outputText>
+                                 <h:commandButton value="Déconnexion" action="#{loginBean.loggout()}"/>
+                            </c:when>
+                            <c:otherwise>
+                                <h:commandButton value="Login/Register" action="login.xhtml"/>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
             </ul>
         </h:form>
     </nav>
