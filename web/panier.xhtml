@@ -75,8 +75,15 @@ and open the template in the editor.
                                                                 </div>
                                                                 <div class="col-xs-3">
                                                                               <h:form >  
-                                                                                    <h:commandButton class="btn btn-success btn-block" value="Confirmer la commande" action="#{panierBean.confirmerPanier()}"/>
-                                                                              </h:form>   
+                                                                                    <c:choose>
+                                                                                        <c:when test="#{loginBean.isLogged}">
+                                                                                            <h:commandButton class="btn btn-success btn-block" value="Confirmer la commande" action="#{panierBean.confirmerPanier(loginBean.email_login)}"/>
+                                                                                        </c:when>
+                                                                                        <c:otherwise>
+                                                                                            <h:commandButton class="btn btn-success btn-block" value="Confirmer la commande" action="login.xhtml"/>
+                                                                                        </c:otherwise>
+                                                                                   </c:choose>
+                                                                                 </h:form>   
                                                                 </div>
                                                         </div>
                                                 </div>

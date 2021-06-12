@@ -34,8 +34,7 @@ import javax.faces.context.FacesContext;
 @Named(value = "panierBean")
 @SessionScoped
 public class PanierBean implements Serializable {
-     @ManagedProperty("loginBean")
-     LoginBean userB;
+    private String email_log;
     private double total;
   //  private Set<Produits> produits_panier= new HashSet<Produits>();
     private List<CustomProduit> produits_panier= new ArrayList<CustomProduit>();
@@ -56,13 +55,14 @@ public class PanierBean implements Serializable {
         this.total = total;
     }
 
-    public LoginBean getUserB() {
-        return userB;
+    public String getEmail_log() {
+        return email_log;
     }
 
-    public void setUserB(LoginBean userB) {
-        this.userB = userB;
+    public void setEmail_log(String email_log) {
+        this.email_log = email_log;
     }
+
 
     public List<CustomProduit> getProduits_panier() {
         return produits_panier;
@@ -82,6 +82,7 @@ public class PanierBean implements Serializable {
     
     public void ajouter_panier(Produits prod,int qtecom){
        CustomProduit cp = new CustomProduit(prod,qtecom);
+        System.out.println("produit "+ prod.getLibelle()+" - "+prod.getCategorie() +" - "  );
         if(prod != null && !produits_panier.contains(cp) ){
              produits_panier.add(cp);
         }
@@ -106,6 +107,7 @@ public class PanierBean implements Serializable {
                 qt = cp.getQte_comm();
                 if(qt<cp.getQte()){
                     cp.setQte_comm(++qt);
+                    return;
                 }
              
             }
@@ -130,24 +132,27 @@ public class PanierBean implements Serializable {
         total = 0;
        for(CustomProduit cp : produits_panier){
            total += cp.getPrix() * cp.getQte_comm();
+         
        }
     }
     
-    public void confirmerPanier(){
+    public void confirmerPanier(String email){
         UsertServices us = new UsertServices();
         ProduitServices ps = new ProduitServices();
         CommandeServices cs = new CommandeServices();
-        
-        Produits prod ;
-        if(userB.getIsLogged()){
-                Usert user = us.recuperer_By_email(userB.getEmail_login());
-        }else{
-            try {
-                FacesContext.getCurrentInstance().getExternalContext()
-                        .redirect("login.xhtml");
-            } catch (IOException ex) {
-                Logger.getLogger(PanierBean.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        Usert user = us.recuperer_By_email(email);
+        Commande cm;
+       
+        for(CustomProduit cp : produits_panier){
+             Produits p = new Produits();
+             p.setId_prod(cp.getId_prod());
+             p.setLibelle(cp.getLibelle());
+             p.setImage(cp.getImage());
+             p.setPrix(cp.getPrix());
+             p.setQte(cp.getQte());
+             p.setCategorie(cp.getCategorie());
+            cm = new Commande(user,p,cp.getPrix()*cp.getQte_comm(),cp.getQte_comm());
+            cs.creer(cm);
         }
     }
 }
