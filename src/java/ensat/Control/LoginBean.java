@@ -82,7 +82,10 @@ public class LoginBean implements Serializable {
         }catch(IOException e){
             System.out.println("error login"+e);
         }
-         
+    }
+    
+    public void loggout(){
+       isLogged = false;
     }
     
     

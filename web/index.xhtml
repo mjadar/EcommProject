@@ -1,57 +1,132 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>Index</title>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <link rel="stylesheet" href="resources/css/accueilStyle.css"/>
+        <script src="resources/js/nour.js"></script>
     </h:head>
-    <h:body>   
-       
+    <h:body>
+        <div class="container">
+  <div class="navbar">
+    <div class="logo">
+      <a href="index.xhtml"><img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Ensat.jpg" alt="RedStore" width="150px" /></a>
+    </div>
+    <nav>
         
-        <c:choose>
-            <c:when test="#{loginBean.isLogged}">
-                 <h:outputText value="#{loginBean.email_login}" style="color:green;"> </h:outputText>
-                 <a href="">Déconnexion</a>
-            </c:when>
-            <c:otherwise>
-                <a href="login_register.xhtml">Login/Register</a>
-            </c:otherwise>
-        </c:choose>
-        <br/>
-       
+             
+         
         <h:form id="user-form">  
-             <h:commandButton id="submit-hommes" value="HOMMES" action="#{produitsBean.getProducts('HOMMES')}"/>
-             <h:commandButton id="submit-femmes" value="FEMMES" action="#{produitsBean.getProducts('FEMMES')}"/>
-             <h:commandButton id="submit-enfants" value="ENFANTS" action="#{produitsBean.getProducts('ENFANTS')}"/>
-        </h:form>     
-        
-          <table>
-            
-            <ui:repeat var="o" value="#{produitsBean.list_produits}" varStatus="status">
-               
-                <h:form id="fpanier">  
-                    <tr>
-                        <td>#{o.libelle}</td>                     
-                        <td>#{o.categorie}</td>
-                        <td>#{o.prix}</td>
-                        <td>#{o.qte}</td>
-                        <td><img src="#{o.image}" alt="alt"  style="width: 200px;height: 200px"/></td>
-                        <td>     
+            <ul id="MenuItems">
+              <li> <h:commandButton id="submit-hommes" value="HOMMES" action="#{produitsBean.getProducts('HOMMES')}"/></li>
+              <li><h:commandButton id="submit-femmes" value="FEMMES" action="#{produitsBean.getProducts('FEMMES')}"/></li>
+              <li><h:commandButton id="submit-enfants" value="ENFANTS" action="#{produitsBean.getProducts('ENFANTS')}"/></li>
+                <li> <c:choose>
+                    <c:when test="#{loginBean.isLogged}">
+                         <h:outputText value="#{loginBean.email_login}" style="color:green;"> </h:outputText>
+                         <h:commandButton value="Déconnexion" action="#{loginBean.loggout()}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <h:commandButton value="Login/Register" action="login.xhtml"/>
+                    </c:otherwise>
+                </c:choose></li>
+            </ul>
+        </h:form>
+    </nav>
+    <a href="panier.xhtml"><img src="https://i.ibb.co/PNjjx3y/cart.png" alt="" width="30px" height="30px" /></a>
+    <img src="https://i.ibb.co/6XbqwjD/menu.png" alt="" class="menu-icon" onclick="menutoggle()" />
+  </div>
+</div>
 
-                            <h:commandButton class="panier_submit" value="Ajouter au panier" action="#{panierBean.ajouter_panier(o,1)}"/>
+<div class="small-container">
+  <div class="row row-2">
+      <h2>#{produitsBean.categorie}</h2>
 
-                        </td>
-                    </tr>
-                </h:form>  
-            </ui:repeat>
-        </table>    
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-       
-      
+  </div>
+  <div class="row">
+        <ui:repeat var="o" value="#{produitsBean.list_produits}" varStatus="status">
+            <h:form>  
+                    <div class="col-4">
+                      <img src="#{o.image}" alt="" />
+                      <h4>#{o.libelle}</h4>
+                      <p style="color: green;font-size: 15px">PRIX : #{o.prix}MAD</p>
+                      <p style="color: blueviolet;font-size: 15px">QTY : #{o.qte}</p>
+                      <h:commandButton class="panier_submit" value="Ajouter au panier" action="#{panierBean.ajouter_panier(o,1)}"/>
+                    </div>
+             </h:form>  
+        </ui:repeat>
+  </div>
+
+</div>
+
+
+<!-- Footer -->
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="footer-col-1">
+        <h3>Download Our App</h3>
+        <p>Download App for Android and iso mobile phone.</p>
+        <div class="app-logo">
+          <img src="https://i.ibb.co/KbPTYYQ/play-store.png" alt="" />
+          <img src="https://i.ibb.co/hVM4X2p/app-store.png" alt="" />
+        </div>
+      </div>
+
+      <div class="footer-col-2">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Ensat.jpg" alt="" />
+        <p>
+          Site Web e-commerce pour la vente en ligne de vetements de differentes catégories.
+        </p>
+      </div>
+
+      <div class="footer-col-3">
+        <h3>Useful Links</h3>
+        <ul>
+          <li>Coupons</li>
+          <li>Blog Post</li>
+          <li>Return Policy</li>
+ 
+        </ul>
+      </div>
+
+      <div class="footer-col-4">
+        <h3>Follow us</h3>
+        <ul>
+          <li>Facebook</li>
+          <li>Twitter</li>
+          <li>Instagram</li>
+          <li>YouTube</li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+    <p class="copyright">Copyright ; ENSA TANGER</p>
+  </div>
+</div>
+
+    <!-- js for toggle menu -->
+    <script>
+      var MenuItems = document.getElementById('MenuItems');
+      MenuItems.style.maxHeight = '0px';
+
+      function menutoggle() {
+        if (MenuItems.style.maxHeight == '0px') {
+          MenuItems.style.maxHeight = '200px';
+        } else {
+          MenuItems.style.maxHeight = '0px';
+        }
+      }
+    </script>
     </h:body>
 </html>

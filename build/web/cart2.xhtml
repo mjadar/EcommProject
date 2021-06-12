@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <head>
+        <title>Panier</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="resources/main.css"/>
+    </head>
+    <body>
+        <div>Panier</div>
+         <table>
+             <ui:repeat var="o" value="#{panierBean.produits_panier}" varStatus="status">
+                <tr>
+                    <h:form>  
+                        <td>#{o.libelle}</td>
+                        <td>#{o.categorie}</td>
+                        <td>#{o.prix}</td>  
+                         <td>
+                             <h:commandButton class="panier_submit" value="-" action="#{panierBean.decrease(o.id_prod)}"/>
+                                  <input type="number" class="qte-input" value="#{o.qte_comm}" min="1" max="#{o.qte}"  />
+                             <h:commandButton class="panier_submit" value="+" action="#{panierBean.increase(o.id_prod)}"/>
+                         </td>                      
+                        <td style="color: green;">#{o.qte_comm * o.prix}</td>
+                        <td><img src="#{o.image}" alt="alt"  style="width: 200px;height: 200px"/></td>
+                    </h:form>  
+                </tr>
+            </ui:repeat>
+        </table>    
+        <h:outputLabel for="total_panier">Total à payer ========>  </h:outputLabel>
+        <h:outputText id="total_panier" value="#{panierBean.total}" style="color:red;"> </h:outputText>
+        
+          <h:form >  
+              <h:commandButton id="panier-confirm" value="Confirmer la commande" action="#{panierBean.confirmerPanier()}"/>
+        </h:form>    
+    </body>
+</html>

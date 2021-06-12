@@ -10,36 +10,81 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <head>
-        <title>Panier</title>
+    <h:head>
+        <title>Panier : </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="resources/main.css"/>
-    </head>
-    <body>
-        <div>Panier</div>
-         <table>
-             <ui:repeat var="o" value="#{panierBean.produits_panier}" varStatus="status">
-                <tr>
-                    <h:form>  
-                        <td>#{o.libelle}</td>
-                        <td>#{o.categorie}</td>
-                        <td>#{o.prix}</td>  
-                         <td>
-                             <h:commandButton class="panier_submit" value="-" action="#{panierBean.decrease(o.id_prod)}"/>
-                                  <input type="number" class="qte-input" value="#{o.qte_comm}" min="1" max="#{o.qte}"  />
-                             <h:commandButton class="panier_submit" value="+" action="#{panierBean.increase(o.id_prod)}"/>
-                         </td>                      
-                        <td style="color: green;">#{o.qte_comm * o.prix}</td>
-                        <td><img src="#{o.image}" alt="alt"  style="width: 200px;height: 200px"/></td>
-                    </h:form>  
-                </tr>
-            </ui:repeat>
-        </table>    
-        <h:outputLabel for="total_panier">Total à payer ========>  </h:outputLabel>
-        <h:outputText id="total_panier" value="#{panierBean.total}" style="color:red;"> </h:outputText>
-        
-          <h:form >  
-              <h:commandButton id="panier-confirm" value="Confirmer la commande" action="#{panierBean.confirmerPanier()}"/>
-        </h:form>    
-    </body>
+         <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <style>
+            body {
+                margin-top: 20px;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <center>
+                <div class="container">
+                        <div class="row">
+                                <div class="col-xs-8">
+                                        <div class="panel panel-info">
+                                                <div class="panel-heading">
+                                                        <div class="panel-title">
+                                                                <div class="row">
+                                                                        <div class="col-xs-6">
+                                                                                <h5><span class="glyphicon glyphicon-shopping-cart"></span> PANIER : </h5>
+                                                                        </div>
+                                                                        <div class="col-xs-6">
+                                                                            <h:form>
+                                                                                <h:commandButton class="btn btn-primary btn-sm btn-block" value="Continuer vos achats" action="index.xhtml"/>
+                                                                            </h:form>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <ui:repeat var="o" value="#{panierBean.produits_panier}" varStatus="status">
+                                                            <div class="row">
+                                                                    <h:form> 
+                                                                        <div class="col-xs-2"><img class="img-responsive" src="#{o.image}"/>
+                                                                        </div>
+                                                                        <div class="col-xs-4">
+                                                                            <h4 class="product-name"><strong>#{o.libelle}</strong></h4>
+                                                                        </div>
+                                                                        <div class="col-xs-6">
+                                                                                <div class="col-xs-6 text-right">
+                                                                                    <h6><strong>#{o.prix} <span class="text-muted">x</span></strong></h6>
+                                                                                </div>
+                                                                                <div class="col-xs-4">
+                                                                                        <h:commandButton class="btn btn-danger" value="-" action="#{panierBean.decrease(o.id_prod)}"/>
+                                                                                        <input type="number" class="form-control input-sm" value="#{o.qte_comm}" min="1" max="#{o.qte}"  />
+                                                                                        <h:commandButton class="btn btn-success" value="+" action="#{panierBean.increase(o.id_prod)}"/>
+                                                                                </div>
+                                                                        </div>
+                                                                    </h:form>
+                                                            </div>
+                                                        <hr></hr>
+                                                    </ui:repeat>
+
+
+                                                </div>
+                                                <div class="panel-footer">
+                                                        <div class="row text-center">
+                                                                <div class="col-xs-9">
+                                                                        <h4 class="text-right">Total à payer : <strong> #{panierBean.total} </strong></h4>
+                                                                </div>
+                                                                <div class="col-xs-3">
+                                                                              <h:form >  
+                                                                                    <h:commandButton class="btn btn-success btn-block" value="Confirmer la commande" action="#{panierBean.confirmerPanier()}"/>
+                                                                              </h:form>   
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+            
+            </center>
+    </h:body>
 </html>

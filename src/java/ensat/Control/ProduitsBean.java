@@ -29,7 +29,7 @@ public class ProduitsBean implements Serializable {
      */
     private int id_prod;
     private String libelle;
-    private String categorie;
+    private String categorie="All Products";
     private double prix;
     private int qte;
     private String image;
@@ -118,6 +118,13 @@ public class ProduitsBean implements Serializable {
     
       public void getProducts(String categ){
          ProduitServices ps = new ProduitServices();
+         if(categ!= null && categ.equals("HOMMES"))
+             this.categorie="Vêtements Hommes ~~~~";
+         else if(categ!= null && categ.equals("FEMMES"))
+             this.categorie="Vêtements Femmes ~~~~";
+         else if(categ!= null && categ.equals("ENFANTS"))
+             this.categorie="Vêtements Enfants ~~~~";
+         
          if(categ == null){
               list_produits = ps.recuperer_All();        
          }else {

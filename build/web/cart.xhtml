@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <link rel="stylesheet" href="resources/css/cart.css"/>
+    </h:head>
+    <h:body>
+        <div class="cart">
+  <div class="container">
+    <div class="grid_12">
+      <h1>Cart</h1>
+    </div>
+    <ul class="items">
+      
+        <ui:repeat var="o" value="#{panierBean.produits_panier}" varStatus="status">
+                <li class="grid_4 item">     
+                   <div class="preview">
+                       <img src="#{o.image}" alt="alt" />
+                   </div>
+                   <div class="details" data-price="475">
+                     <h3>
+                       47cm Blue Steve Bauer
+                       <span class="right">$475</span>
+                     </h3>
+                     <p>WAIT ONE MINUTE! If you're not 5'1 and under, you will probably only get half a pedal stroke in before your knees hit...</p>
+                     <div class="inner_container">
+                       <div class="col_1of2">
+                         <p><span class="current_quantity">1</span> @ $475</p>
+                       </div> 
+                       <div class="col_1of2 align-right">
+                         <p>
+                           <a href="#" class="btn-quantity plus">
+                             <span class="icon icon-plus"></span>
+                           </a>
+                           <a href="#" class="btn-quantity minus">
+                             <span class="icon icon-minus"></span>
+                           </a>
+                         </p>
+                         <input type="hidden" class="quantity_field" name="quantity" data-price="475" value="1" />
+                       </div>          
+                     </div>
+                   </div>
+                 </li>
+        </ui:repeat>
+        
+        
+
+        
+    </ul>
+    <div class="grid_12 summary">
+      <div class="inner_container">
+        <div class="col_1of2 meta-data">
+          <div class="sub-total">
+            <em>Sub Total: </em><span class="amount"></span>
+          </div>
+          <div class="taxes">
+            <em>Sales Tax: </em><span class="amount">5%</span>
+          </div>
+          <div class="shipping">
+            <em>Shipping: </em><span class="amount">$20</span>
+          </div>
+        </div>
+        <div class="col_1of2">
+          <div class="total">
+            <span class="amount"></span>
+          </div>
+        </div>
+        <div class="col_1of1">
+          <a href="#" class="btn-checkout">Checkout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    </h:body>
+</html>

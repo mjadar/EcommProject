@@ -5,8 +5,7 @@
 @green: #56baed;
 @gray:  #2e2e2e;
 
-html, 
-body {
+html,body {
   height: 100%;
 }
 
@@ -250,22 +249,6 @@ a:active {
 .grid-product .add-to-cart:hover {
   color: @green;
   background-color: #39ace7;
-}
-
-.camera {
-  background-image: url(https://imgur.com/fP6yjZ3.jpg);
-}
-
-.watch {
-  background-image: url(https://imgur.com/DWMEYH3.jpg);
-}
-
-.typewriter {
-  background-image: url(https://imgur.com/DVT28Z6.jpg);
-}
-
-.canoe {
-  background-image: url(https://imgur.com/SC1jz9L.jpg);
 }
 
 .site-footer {

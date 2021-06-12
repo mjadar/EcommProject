@@ -34,7 +34,7 @@ import javax.faces.context.FacesContext;
 @Named(value = "panierBean")
 @SessionScoped
 public class PanierBean implements Serializable {
-     @ManagedProperty("#{userBean}")
+     @ManagedProperty("loginBean")
      LoginBean userB;
     private double total;
   //  private Set<Produits> produits_panier= new HashSet<Produits>();
@@ -137,14 +137,10 @@ public class PanierBean implements Serializable {
         UsertServices us = new UsertServices();
         ProduitServices ps = new ProduitServices();
         CommandeServices cs = new CommandeServices();
-        Usert user = us.recuperer_By_email(userB.getEmail_login());
+        
         Produits prod ;
         if(userB.getIsLogged()){
-            for(CustomProduit p : produits_panier){
-                prod = ps.recuperer(p.getId_prod());
-                Commande comm = new Commande(user,prod,p.getPrix(),p.getQte());
-                cs.creer(comm);
-            }
+                Usert user = us.recuperer_By_email(userB.getEmail_login());
         }else{
             try {
                 FacesContext.getCurrentInstance().getExternalContext()
